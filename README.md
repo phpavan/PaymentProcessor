@@ -1,4 +1,4 @@
-# Hazelcast Payment Processor
+# Hazelcast Simple Payment Processor
 
 ## Overview
 This project processes payments using **Hazelcast Jet**. It reads payments from a `payments.csv` file, processes them through a Hazelcast Jet pipeline, debulks bulk transactions, aggregates payments by merchant ID, and prints the processed payments to the console.
@@ -44,6 +44,27 @@ TXN004,456,M003,200,EUR,1712551860
 TXN005,111,M001,150,USD,1712551980
 ```
 
+## Hazelcast Payment Processing Pipeline
+The **Hazelcast Jet Pipeline** follows these steps:
+
+1. **Read Payments from CSV**: Reads payment transactions from `payments.csv` using Hazelcast Jet's file source.
+2. **Parse Payments**: Converts CSV records into `Payment` objects.
+3. **Debulk Transactions**: Identifies bulk payments and expands them into individual transactions.
+4. **Enrich with Customer Data**: Uses Hazelcast **IMap** to map customer IDs to their names.
+5. **Filter Invalid Transactions**: Removes payments with invalid or zero amounts.
+6. **Aggregate Payments by Merchant**: Groups payments by **Merchant ID** and sums the transaction amounts.
+7. **Write Output to Console**: Prints the processed payments to the console.
+
+## Hazelcast API Usage
+- **`HazelcastInstance hz = Hazelcast.newHazelcastInstance(config);`** – Creates a new Hazelcast instance.
+- **`IMap<String, String> customerData = hz.getMap("customer-info");`** – Stores customer data in a distributed map.
+- **`pipeline.readFrom(Sources.files("payments.csv"))`** – Reads the CSV file as input.
+- **`.map(PaymentProcessor::parsePayment)`** – Converts CSV lines into `Payment` objects.
+- **`.flatMap(PaymentProcessor::debulkTransaction)`** – Expands bulk transactions.
+- **`.mapUsingIMap("customer-info", Payment::getCustomerId, (payment, customerName) -> {...})`** – Enriches transactions with customer names.
+- **`.groupingKey(Payment::getMerchantId).aggregate(AggregateOperations.summingDouble(Payment::getAmount))`** – Aggregates payments by merchant.
+- **`.writeTo(Sinks.fromProcessor("consoleSink", ProcessorMetaSupplier.of(...)))`** – Outputs results to the console.
+
 ## Expected Console Output
 When you run the application, the processed payments will be displayed in the console, showing individual transactions and aggregated totals.
 
@@ -55,3 +76,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 For any questions or issues, reach out via the GitHub repository: [PaymentProcessor](https://github.com/phpavan/PaymentProcessor).
+
