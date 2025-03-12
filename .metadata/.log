@@ -1,0 +1,16 @@
+!SESSION 2025-03-11 21:43:03.290 -----------------------------------------------
+eclipse.buildId=4.31.0.20240307-1200
+java.version=17.0.10
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=aarch64, WS=cocoa, NL=en_MY
+Framework arguments:  -product org.eclipse.epp.package.jee.product -keyring /Users/ppavanku/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch aarch64 -product org.eclipse.epp.package.jee.product -keyring /Users/ppavanku/.eclipse_keyring -data /Users/ppavanku/hazelcast-payment-processor
+
+!ENTRY org.eclipse.emf.ecore 2 0 2025-03-11 21:43:04.476
+!MESSAGE Both 'org.eclipse.jst.j2ee.core' and 'org.eclipse.jst.j2ee.core' register a package for 'application.xmi'
+
+!ENTRY ch.qos.logback.classic 1 0 2025-03-11 21:43:04.598
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-03-11 21:43:05.307
+!MESSAGE Logback config file: /Users/ppavanku/hazelcast-payment-processor/.metadata/.plugins/org.eclipse.m2e.logback/logback.2.6.0.20240217-1525.xml
