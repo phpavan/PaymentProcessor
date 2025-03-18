@@ -1,7 +1,15 @@
+#
 .classpath
 .factorypath
+.idea
 .project
 .settings
-/DS_Store
+.vscode
+.DS_Store
+#
+*.code-workspace
+*.iml
+#
+*.pyc
 dependency-reduced-pom.xml
 target

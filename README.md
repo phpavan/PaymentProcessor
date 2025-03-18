@@ -12,7 +12,7 @@ This project processes payments using **Hazelcast Jet**. It reads payments from 
 - Writes the processed payments to the **console**.
 
 ## Prerequisites
-- **Java 8 or later** installed
+- **Java 17 or later** installed
 - **Apache Maven** installed
 - **Git** installed
 
